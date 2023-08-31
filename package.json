@@ -8,7 +8,8 @@
     "start:dev": "nodemon",
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "test": "npm run build && npm run jasmine"
+    "test": "npm run build && npm run jasmine",
+    "prepare": "husky install"
   },
   "author": "",
   "license": "MIT",
@@ -36,15 +37,15 @@
   },
   "nodemonConfig": {
     "ignore": [
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    ".git",
-    "node_modules"
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
     ],
     "watch": [
-    "src"
+      "src"
     ],
     "exec": "npm start",
     "ext": "ts"
-    }
+  }
 }
