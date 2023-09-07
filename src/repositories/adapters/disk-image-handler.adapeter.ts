@@ -35,7 +35,18 @@ export class DiskImageHandlerAdapter implements ImageHandler {
   }
 
   async getImagesList(): Promise<string[]> {
-    return ['Image1', 'Image2']
+    return await new Promise((resolve, reject) => {
+      const directoryPath = path.join(__dirname, '..', '..', 'assets', 'full')
+
+      fs.readdir(directoryPath, (err, files) => {
+        if (err != null) {
+          // eslint-disable-next-line prefer-promise-reject-errors
+          reject(`Error retrieving files: ${err.message}`)
+        } else {
+          resolve(files)
+        }
+      })
+    })
   }
 
   async getImage(imgName: string): Promise<string> {
