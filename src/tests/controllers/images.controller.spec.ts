@@ -24,4 +24,14 @@ describe('ImagesController', () => {
     verify(mockImagesService.saveImage(instance(mockReq))).once()
     verify(mockRes.send(testResult)).once()
   })
+
+  it('should get all images and return the result', async () => {
+    const testResult = ['test-url']
+    when(mockImagesService.getImages()).thenResolve(testResult)
+
+    await imagesController.getImages(instance(mockReq), instance(mockRes))
+
+    verify(mockImagesService.getImages()).once()
+    verify(mockRes.send(testResult)).once()
+  })
 })

@@ -79,4 +79,41 @@ describe('DiskImageHandlerAdapter', () => {
       expect(result).toBe(`${mockProtocol}://${mockHost}/full/${formattedName}`)
     })
   })
+
+  describe('getImagesList', () => {
+    it('should return a list of images', async () => {
+      const mockFiles = ['test1.jpg', 'test2.jpg', 'test3.jpg']
+
+      spyOn(fs, 'readdir' as any).and.callFake(
+        (path: any, callback: (arg0: null, arg1: string[]) => void) => {
+          callback(null, mockFiles)
+        },
+      )
+
+      const result = await diskImageHandler.getImagesList()
+
+      expect(result).toEqual(mockFiles)
+    })
+
+    it('should throw an error if there is a problem reading the directory', async () => {
+      const mockError = new Error('Test error')
+
+      spyOn(fs, 'readdir' as any).and.callFake(
+        (path: any, callback: (arg0: Error, arg1: null) => void) => {
+          callback(mockError, null)
+        },
+      )
+
+      try {
+        await diskImageHandler.getImagesList()
+        fail('Expected error to be thrown')
+      } catch (error) {
+        if (error instanceof Error) {
+          expect(error.message).toBe(
+            `Error retrieving files: ${mockError.message}`,
+          )
+        }
+      }
+    })
+  })
 })

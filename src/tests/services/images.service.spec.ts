@@ -20,4 +20,11 @@ describe('ImagesService', () => {
       verify(imageHandlerMock.saveImage(mockRequest as Request)).once()
     })
   })
+
+  describe('getImages', () => {
+    it('should get the images list using imageHandler', async () => {
+      await imagesService.getImages()
+      verify(imageHandlerMock.getImagesList()).once()
+    })
+  })
 })
