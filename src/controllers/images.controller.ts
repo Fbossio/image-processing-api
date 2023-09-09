@@ -17,7 +17,7 @@ export default class ImagesController {
   }
 
   async getImage(req: Request, res: Response) {
-    const result = await this.imagesService.getImage(req.params.imgName)
+    const result = await this.imagesService.getImage(req)
     res.send(result)
   }
 }

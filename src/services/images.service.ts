@@ -16,7 +16,7 @@ export default class ImagesService {
     return await this.imageHandler.getImagesList()
   }
 
-  public async getImage(imgName: string) {
-    return await this.imageHandler.getImage(imgName)
+  public async getImage(req: Request) {
+    return await this.imageHandler.getImage(req)
   }
 }
