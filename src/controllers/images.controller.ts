@@ -6,7 +6,7 @@ import ImagesService from '../services/images.service'
 export default class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
-  async saveImage(req: Request, res: Response) {
+  saveImage = async (req: Request, res: Response) => {
     const result = await this.imagesService.saveImage(req)
     res.send(result)
   }

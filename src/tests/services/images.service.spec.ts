@@ -27,4 +27,12 @@ describe('ImagesService', () => {
       verify(imageHandlerMock.getImagesList()).once()
     })
   })
+
+  describe('getImage', () => {
+    it('should get the image using imageHandler', async () => {
+      const mockRequest: Partial<Request> = {}
+      await imagesService.getImage(mockRequest as Request)
+      verify(imageHandlerMock.getImage(mockRequest as Request)).once()
+    })
+  })
 })

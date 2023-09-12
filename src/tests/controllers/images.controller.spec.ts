@@ -34,4 +34,14 @@ describe('ImagesController', () => {
     verify(mockImagesService.getImages()).once()
     verify(mockRes.send(testResult)).once()
   })
+
+  it('should resize an image and return the path', async () => {
+    const testResult = 'test-url'
+    when(mockImagesService.getImage(instance(mockReq))).thenResolve(testResult)
+
+    await imagesController.getImage(instance(mockReq), instance(mockRes))
+
+    verify(mockImagesService.getImage(instance(mockReq))).once()
+    verify(mockRes.send(testResult)).once()
+  })
 })

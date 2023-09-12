@@ -34,6 +34,8 @@ app.use(`/api/${API_VERSION}/images`, imagesRoutes)
 // use middlewares
 app.use(errorHandler)
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`)
 })
+
+export default server

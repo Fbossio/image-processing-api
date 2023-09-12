@@ -116,4 +116,98 @@ describe('DiskImageHandlerAdapter', () => {
       }
     })
   })
+
+  describe('getImage', () => {
+    it('should return a thumbnail if the image already exists', async () => {
+      const mockName = 'test.jpg'
+      const mockWidth = 100
+      const mockHeight = 100
+      const mockPath = `full/${mockName}`
+      const mockThumbName = `${mockWidth}x${mockHeight}_${mockName}`
+      const mockThumbPath = `thumb/${mockThumbName}`
+      const mockHost = 'example.com'
+      const mockProtocol = 'https'
+
+      when(mockReq.query).thenReturn({
+        name: mockName,
+        width: mockWidth,
+        height: mockHeight,
+      } as any)
+      when(mockReq.get('host')).thenReturn(mockHost)
+      when(mockReq.protocol).thenReturn(mockProtocol)
+
+      spyOn(fs.promises, 'writeFile').and.returnValue(Promise.resolve())
+      spyOn(fs.promises, 'readFile').and.returnValue(
+        Promise.resolve('test data'),
+      )
+      spyOn(fs, 'existsSync').and.returnValue(true)
+
+      const result = await diskImageHandler.getImage(instance(mockReq))
+
+      expect(result).toBe(`${mockProtocol}://${mockHost}/${mockThumbPath}`)
+    })
+
+    it('should return a thumb image if the thumbnail does not exist', async () => {
+      const mockName = 'test.jpg'
+      const mockWidth = 100
+      const mockHeight = 100
+      const mockPath = `full/${mockName}`
+      const mockThumbName = `${mockWidth}x${mockHeight}_${mockName}`
+      const mockThumbPath = `thumb/${mockThumbName}`
+      const mockHost = 'example.com'
+      const mockProtocol = 'https'
+
+      when(mockReq.query).thenReturn({
+        name: mockName,
+        width: mockWidth,
+        height: mockHeight,
+      } as any)
+      when(mockReq.get('host')).thenReturn(mockHost)
+      when(mockReq.protocol).thenReturn(mockProtocol)
+
+      spyOn(fs.promises, 'writeFile').and.returnValue(Promise.resolve())
+      spyOn(fs.promises, 'readFile').and.returnValue(
+        Promise.resolve('test data'),
+      )
+      spyOn(fs, 'existsSync').and.returnValue(true)
+
+      const result = await diskImageHandler.getImage(instance(mockReq))
+
+      expect(result).toBe(`${mockProtocol}://${mockHost}/${mockThumbPath}`)
+    })
+
+    it('should return an error if the image does not exist', async () => {
+      const mockName = 'test.jpg'
+      const mockWidth = 100
+      const mockHeight = 100
+      const mockPath = `full/${mockName}`
+      const mockThumbName = `${mockWidth}x${mockHeight}_${mockName}`
+      const mockThumbPath = `thumb/${mockThumbName}`
+      const mockHost = 'example.com'
+      const mockProtocol = 'https'
+
+      when(mockReq.query).thenReturn({
+        name: mockName,
+        width: mockWidth,
+        height: mockHeight,
+      } as any)
+      when(mockReq.get('host')).thenReturn(mockHost)
+      when(mockReq.protocol).thenReturn(mockProtocol)
+
+      spyOn(fs.promises, 'writeFile').and.returnValue(Promise.resolve())
+      spyOn(fs.promises, 'readFile').and.returnValue(
+        Promise.resolve('test data'),
+      )
+      spyOn(fs, 'existsSync').and.returnValue(false)
+
+      try {
+        await diskImageHandler.getImage(instance(mockReq))
+        fail('Expected error to be thrown')
+      } catch (error) {
+        if (error instanceof Error) {
+          expect(error.message).toBe('Image not found')
+        }
+      }
+    })
+  })
 })
