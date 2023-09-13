@@ -1,4 +1,4 @@
-# Image Service
+# Image Resizer API
 
 This service offers a robust solution for image uploading and retrieval of resized images. Built on the solid foundations of Express and TypeScript, it ensures efficient performance and type-safe code.
 
