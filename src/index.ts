@@ -6,6 +6,9 @@ import 'reflect-metadata'
 
 import express from 'express'
 import path from 'path'
+import swaggerJsdoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerOptions } from './config/swagger-options'
 
 // import middlewares
 import { initializeLoaders } from './config/loaders'
@@ -33,6 +36,10 @@ app.use(`/api/${API_VERSION}/images`, imagesRoutes)
 
 // use middlewares
 app.use(errorHandler)
+
+// use swagger
+const specs = swaggerJsdoc(swaggerOptions)
+app.use(`/api/${API_VERSION}/docs`, swaggerUi.serve, swaggerUi.setup(specs))
 
 const server = app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}!`)
