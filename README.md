@@ -12,8 +12,8 @@ This service offers a robust solution for image uploading and retrieval of resiz
 
 Ensure you have the following installed on your local machine:
 
-- Docker
-- Docker Compose
+- Node.js
+- Npm
 
 ## Getting Started 🚦
 
@@ -25,12 +25,18 @@ Follow these steps to get the service up and running:
 git clone <repository-url>
 ```
 
-2. **Run the application**
+2. **Install dependencies**
 
 Navigate to the root directory of the project and execute:
 
 ```bash
-docker compose up app
+npm install
+```
+
+3. **Run the service in development mode**
+
+```bash
+npm run start
 ```
 
 ## Testing 🧪
@@ -39,7 +45,7 @@ docker compose up app
 Execute the unit tests by running:
 
 ```bash
-docker compose up test
+npm run test
 ```
 
 ### End to End Tests
@@ -47,7 +53,7 @@ docker compose up test
 For e2e tests, use the following command:
 
 ```bash
-docker compose up e2e
+npm run e2e
 ```
 
 ## Documentation 📖
@@ -55,4 +61,14 @@ docker compose up e2e
 When running the service in development mode with default configurations, access the API documentation at:
 
 http://localhost:3000/api/v1/docs
+
+## Manual Testing 👨‍💻
+
+## Resize an image already saved in the server
+
+1. Once you have the server running in development mode, you can acces the Swagger documentation interface at: http://localhost:3000/api/v1/docs
+
+![Swagger Docs](./src/assets/manual-testing/420x200_01-first-view.png)
+
+
 
