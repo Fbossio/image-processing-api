@@ -8,15 +8,15 @@ export default class ImagesService {
     @Inject('ImageHandler') private readonly imageHandler: ImageHandler,
   ) {}
 
-  public async saveImage(req: Request) {
+  public async saveImage(req: Request): Promise<string> {
     return await this.imageHandler.saveImage(req)
   }
 
-  public async getImages() {
+  public async getImages(): Promise<string[]> {
     return await this.imageHandler.getImagesList()
   }
 
-  public async getImage(req: Request) {
+  public async getImage(req: Request): Promise<string> {
     return await this.imageHandler.getImage(req)
   }
 }
